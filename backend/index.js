@@ -19,16 +19,15 @@ res.json({ data })
 
 app.post("/todo" , (req,res) => {
     const inputbody= req.body;
+    console.log("Post request recieved" + inputbody)
     const result=createtype.safeParse(inputbody);
-    if(!result.success){
-        res.status(411).json(result)
-    }
-    else{
+    // if(createtype.safeParse(inputbody).success){
+        // console.log("safely parsed")
 const newtodo= new todos (inputbody);
 newtodo.save().then(()=>{
     res.status(200).json("Added Todo")
 })
-}
+// }
 })
 
 

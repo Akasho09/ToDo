@@ -5,6 +5,7 @@ const zod= require ("zod");
 // o :{ str
 const createtype = zod.object(
     {
+    key: zod.number(),
     title :zod.string(), //title
     Description :zod.string(), // description
     Doneby : zod.number(),

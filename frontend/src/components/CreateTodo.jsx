@@ -21,8 +21,9 @@ import { useState } from "react";
 // alert("Todo added")
 // })
 // }
-
+let count=1;
 export function CreateTodo () {
+    const [id,setid]=useState("")
     const [title,setTitle] = useState("");
     const [desc,setDescription] = useState("");
     const [done,setdone] = useState("");
@@ -33,6 +34,7 @@ export function CreateTodo () {
             margin :10
         }} onChange={(e)=>{
             const title = e.target.value;
+            setid(count++);
             setTitle(e.target.value);
         }}/><br />
         <input type="text" placeholder="Description" style = {{
@@ -50,19 +52,19 @@ export function CreateTodo () {
            setdone(e.target.value);
         }}/><br />
         <button onClick={ ()=>{
-    fetch ("http://localhost:3000/todo" ,{
-    method:"POST",
-    body : JSON.stringify({
+fetch('http://localhost:3000/todo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        key: id,
         title : title,
         Description : desc,
         Doneby : done,
         Completed : false
-    }) ,
-    headers : {
-     "Content-type" : "application/json"
-    }
-}
-)
+    })
+})
 .then(async (res)=>{
 const json = await res.json();
 alert("Todo added")
